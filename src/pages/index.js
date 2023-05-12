@@ -16,7 +16,7 @@ export default function Home() {
           <h2 className="bg-gradient-to-r from-neutral-50 to-yellow-500 bg-clip-text text-transparent text-6xl font-bold">
             It's a fly.
           </h2>
-          <h1 className="bg-gradient-to-r from-neutral-50 to-blue-400 bg-clip-text text-transparent text-7xl mt-5 font-bold">
+          <h1 className="bg-gradient-to-r from-neutral-50 to-blue-200 bg-clip-text text-transparent text-7xl mt-5 font-bold">
             It's a cockroach.
           </h1>
           <h4 className="text-white text-4xl mt-28 font-medium">
@@ -24,16 +24,16 @@ export default function Home() {
           </h4>
 
           <div className="mt-20 flex  gap-5">
-            <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+            <button className="bg-red-500 hover:bg-red-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
               
-              <svg className="fill-current w-8 h-8 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+              <svg className="fill-white w-8 h-8 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                 <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
               </svg>
               <span>Start a Game</span>
             </button>
             <button className="bg-transparent hover:bg-white-500 text-white-700 font-semibold text-white py-2 px-6 border hover:border-white border-transparent rounded">
             <svg
-                className="fill-current w-8 h-8 mr-2"
+                className=" fill-red-500 w-8 h-8 mr-2"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 384 512"
               >
@@ -44,7 +44,7 @@ export default function Home() {
           </div>
         </div>
         <div className="">
-          <img src="/images/cards.png" />
+          <img className={classes.homeimg} src="/images/cards.png" />
         </div>
       </div>
     </div>
