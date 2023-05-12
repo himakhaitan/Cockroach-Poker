@@ -1,26 +1,25 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from 'react-redux';
 import Navigation from "../components/Navigation";
-
 import classes from "../styles/home.module.css";
-
 import randomNumber from "@/utils/randomNumber";
 
 export default function Home() {
 
-  const [nameIndex, setNameIndex] = useState(0);
-  const [avatarIndex, setAvatarIndex] = useState(1);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // Generating Random Name and Avatar
-    setNameIndex(randomNumber(0, 52));
-    setAvatarIndex(randomNumber(1, 9));
+    dispatch({type: 'user/setName', payload: randomNumber(0, 52)});
+    dispatch({type: 'user/setAvatar', payload: randomNumber(1, 9)});
+
   }, []);
 
   return (
     <div
       className={`h-screen bg-gradient-to-tr from-black via-slate-800 to-red-900 ${classes.home}`}
     >
-      <Navigation nameIndex={nameIndex} avatarIndex={avatarIndex}/>
+      <Navigation/>
       <div className="grid grid-cols-2 gap-8 px-40 py-60 items-center">
         <div className="">
           <h2 className="bg-gradient-to-r from-neutral-50 to-yellow-500 bg-clip-text text-transparent text-8xl font-bold">
