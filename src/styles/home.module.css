@@ -1,0 +1,6 @@
+.home {
+  background-image: linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,0.6)),
+    url("https://assetsio.reedpopcdn.com/dicebreaker-recommends-cockroach-poker-the-bug-bluffing-card-game-to-bring-out-during-the-holidays-1639495982743.jpg?width=690&quality=75&format=jpg&dpr=2&auto=webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
