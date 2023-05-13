@@ -53,7 +53,7 @@ export default function Home() {
                 <span>Start a Game</span>
               </button>
             </Link>
-            <Link href="/createRoom" className="inline-flex items-stretch">
+            <Link href="/joinRoom" className="inline-flex items-stretch">
               <button className="bg-transparent hover:bg-white-500 text-white-700 font-semibold text-white py-2 px-6 border hover:border-white border-transparent rounded">
                 <svg
                   className=" fill-red-500 w-8 h-8 mr-2"
