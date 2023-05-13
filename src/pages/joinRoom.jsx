@@ -16,6 +16,9 @@ const RoomItem = ({}) => {
 };
 
 const JoinRoom = ({}) => {
+
+    
+
   return (
     <div
       className={`min-h-screen bg-gradient-to-tr from-black via-slate-800 to-red-900 ${classes.createRoom}`}
