@@ -54,4 +54,3 @@ export const names = [
   "Isis",
   "Cheyanne",
 ];
-
