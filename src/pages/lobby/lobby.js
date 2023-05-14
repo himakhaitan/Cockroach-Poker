@@ -1,10 +1,11 @@
-import classes from "../../styles/home.module.css";
+import classes from "../../styles/createRoom.module.css";
 import Navigation from "@/components/Navigation";
+import Link from "next/link";
 
 const Lobby = () => {
   return (
     <div
-      className={`min-h-screen bg-gradient-to-tr from-black via-slate-800 to-red-900 ${classes.home}`}
+      className={`min-h-screen bg-gradient-to-tr from-black via-slate-800 to-red-900 ${classes.createRoom}`}
     >
       <Navigation />
       <h1 className="text-4xl py-32 px-40 font-medium bg-gradient-to-r from-neutral-50 to-blue-400 bg-clip-text text-transparent">
@@ -38,16 +39,18 @@ const Lobby = () => {
           </h3>
         </div>
       </div>
-      <button className="bg-blue-400 mx-40 my-40 py-5 hover:bg-blue-300 text-gray-800 font-bold px-4 rounded inline-flex items-center">
-        <svg
-          className="fill-white w-8 h-8 mr-2"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 448 512"
-        >
-          <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
-        </svg>
-        <span>Start the Game</span>
-      </button>
+      <Link href="/game/game">
+        <button className="bg-blue-400 mx-40 my-28 py-5 hover:bg-blue-300 text-gray-800 font-bold px-4 rounded inline-flex items-center">
+          <svg
+            className="fill-white w-8 h-8 mr-2"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 448 512"
+          >
+            <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+          </svg>
+          <span>Start the Game</span>
+        </button>
+      </Link>
     </div>
   );
 };
