@@ -67,7 +67,7 @@ export default function Home() {
             </Link>
           </div>
         </div>
-        <div className="">
+        <div>
           <img className={classes.homeimg} src="/images/cards.png" />
         </div>
       </div>
