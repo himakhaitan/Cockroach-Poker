@@ -19,3 +19,8 @@ export const dealCards = () => {
 
     // Send the cards to the players
 };
+
+// Turn Manager
+export const turnManager = () => {
+
+}
