@@ -1,8 +1,11 @@
 import classes from "../../styles/createRoom.module.css";
 import Navigation from "@/components/Navigation";
 import Link from "next/link";
-
+import { useRouter } from 'next/router'
 const Lobby = () => {
+  const router = useRouter();
+  const { slug } = router.query;
+  console.log(slug);
   return (
     <div
       className={`min-h-screen bg-gradient-to-tr from-black via-slate-800 to-red-900 ${classes.createRoom}`}

@@ -14,6 +14,7 @@ export default function Home() {
   const dispatch = useDispatch();
   const nameFetchedRef = useRef(false);
   const userName = useSelector(selectUserName);
+
   useEffect(() => {
     // Generating Random Name and Avatar
     if (nameFetchedRef.current) return;
@@ -29,11 +30,10 @@ export default function Home() {
 
   async function socketInit() {
     socket = io("http://localhost:8000");
-
     socket.on("connect", () => {
       console.log("Socket Connected: ", socket.id);
 
-      // TODO : Save Socket ID in Redux
+      dispatch({ type: "store/setSocket", payload: socket });
     });
   }
 

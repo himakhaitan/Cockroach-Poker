@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState } from "react";
 
 import classes from "../styles/createRoom.module.css";
 import Navigation from "@/components/Navigation";
@@ -6,14 +6,31 @@ import Link from "next/link";
 
 import { useSelector } from "react-redux";
 import { selectUserName, selectUserAvatar } from "../store/slices/userSlice";
+import { selectSocket } from "../store/slices/storeSlice";
 
-const CreateRoom = ({}) => {
+import SOCKET_EVENTS from "@/utils/socketEvents";
 
+const CreateRoom = () => {
   const userName = useSelector(selectUserName);
   const userAvatar = useSelector(selectUserAvatar);
+  const socket = useSelector(selectSocket);
+  const [name, setName] = useState("");
 
-  
+  const nameChangeHandler = (event) => {
+    setName(event.target.value.split(" ").join("").toLowerCase());
+  };
 
+  const createRoomHandler = () => {
+    socket.on(SOCKET_EVENTS.ROOM_CREATED, (data) => {
+      console.log(data);
+    });
+
+    socket.emit(SOCKET_EVENTS.CREATE_ROOM, {
+      userName,
+      userAvatar,
+      roomName: name,
+    });
+  };
 
   return (
     <div
@@ -48,11 +65,14 @@ const CreateRoom = ({}) => {
                 class="appearance-none bg-transparent border-none w-full text-gray-200 mr-3 py-1 px-2 leading-tight focus:outline-none"
                 type="text"
                 placeholder="Enter Room Name"
+                value={name}
+                onChange={nameChangeHandler}
                 aria-label="Full name"
               />
               <button
-                class="flex-shrink-0 bg-red-500 hover:bg-red-700 border-red-500 hover:border-red-700 text-2xl border-4 text-white py-3 px-6 rounded"
+                className="flex-shrink-0 bg-red-500 hover:bg-red-700 border-red-500 hover:border-red-700 text-2xl border-4 text-white py-3 px-6 rounded"
                 type="button"
+                onClick={createRoomHandler}
               >
                 Create Room
               </button>
