@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { collection, getDocs } from "firebase/firestore";
 import { selectSocket } from "../store/slices/storeSlice";
 import { selectUserAvatar, selectUserName } from "@/store/slices/userSlice";
 import classes from "../styles/createRoom.module.css";
@@ -7,13 +8,14 @@ import Navigation from "@/components/Navigation";
 import Link from "next/link";
 import SOCKET_EVENTS from "@/utils/socketEvents";
 import { useRouter } from "next/router";
+import db from "@/firebase/FirebaseService.js";
 
-const RoomItem = ({}) => {
+const RoomItem = ({ index, roomName, playersCount }) => {
   return (
     <div className="mt-5 flex justify-between items-center px-12 py-6 bg-neutral-900 rounded opacity-90">
-      <span>1</span>
-      <span>Gotcha Hang</span>
-      <span>3/4</span>
+      <span>{index}</span>
+      <span>{roomName}</span>
+      <span>{playersCount}/4</span>
       <button class="bg-red-500 hover:bg-red-700 text-white font-medium py-2 px-10 rounded">
         Join
       </button>
@@ -21,7 +23,7 @@ const RoomItem = ({}) => {
   );
 };
 
-const JoinRoom = ({}) => {
+const JoinRoom = ({ roomsAvailable }) => {
   const [roomId, setRoomId] = useState("");
   const router = useRouter();
   const socket = useSelector(selectSocket);
@@ -41,7 +43,7 @@ const JoinRoom = ({}) => {
 
     socket.on(SOCKET_EVENTS.PLAYER_JOINED, (data) => {
       router.push(`/lobby/${data.roomId}`);
-    })
+    });
   };
 
   return (
@@ -96,15 +98,39 @@ const JoinRoom = ({}) => {
         <h1 className="bg-gradient-to-r from-neutral-50 mb-10 text-center to-yellow-500 bg-clip-text text-transparent text-6xl font-bold">
           Active Rooms
         </h1>
-        <RoomItem />
-        <RoomItem />
-        <RoomItem />
-        <RoomItem />
-        <RoomItem />
-        <RoomItem />
+        {roomsAvailable.map((room, index) => {
+          return (
+            <RoomItem
+              key={index}
+              roomName={room.roomName}
+              index={index + 1}
+              playersCount={room.playersCount}
+            />
+          );
+        })}
       </div>
     </div>
   );
 };
+
+export async function getStaticProps() {
+  const querySnapshot = await getDocs(collection(db, "rooms"));
+  let roomsAvailable = [];
+  querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    let data = doc.data();
+
+    roomsAvailable.push({
+      id: doc.id,
+      roomName: data.roomName,
+      playersCount: data.players.length,
+    });
+  });
+  return {
+    props: {
+      roomsAvailable,
+    },
+  };
+}
 
 export default JoinRoom;

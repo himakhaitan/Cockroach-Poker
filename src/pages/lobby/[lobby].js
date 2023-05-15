@@ -1,7 +1,6 @@
 import classes from "../../styles/createRoom.module.css";
 import Navigation from "@/components/Navigation";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { selectSocket } from "@/store/slices/storeSlice";
@@ -21,7 +20,16 @@ const Lobby = ({ pplayers, roomName }) => {
     socket.on(SOCKET_EVENTS.REFRESH_LOBBY, (players) => {
       setPlayers(players);
     });
+
+    socket.on(SOCKET_EVENTS.START_GAME, (data) => {
+      router.push(`/game/${data}`);
+    });
   });
+
+  const startGameHandler = () => {
+    socket.emit(SOCKET_EVENTS.START_GAME, lobby);
+    router.push(`/game/${lobby}`);
+  };
 
   return (
     <div
@@ -47,18 +55,19 @@ const Lobby = ({ pplayers, roomName }) => {
           );
         })}
       </div>
-      <Link href="/game/game">
-        <button className="bg-blue-400 mx-40 my-28 py-5 hover:bg-blue-300 text-gray-800 font-bold px-4 rounded inline-flex items-center">
-          <svg
-            className="fill-white w-8 h-8 mr-2"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 448 512"
-          >
-            <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
-          </svg>
-          <span>Start the Game</span>
-        </button>
-      </Link>
+      <button
+        onClick={startGameHandler}
+        className="bg-blue-400 mx-40 my-28 py-5 hover:bg-blue-300 text-gray-800 font-bold px-4 rounded inline-flex items-center"
+      >
+        <svg
+          className="fill-white w-8 h-8 mr-2"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 448 512"
+        >
+          <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+        </svg>
+        <span>Start the Game</span>
+      </button>
     </div>
   );
 };
