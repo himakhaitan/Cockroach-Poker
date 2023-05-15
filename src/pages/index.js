@@ -7,11 +7,13 @@ import classes from "../styles/home.module.css";
 import randomNumber from "@/utils/randomNumber";
 import Link from "next/link";
 
+import io from "socket.io-client";
+let socket;
+
 export default function Home() {
   const dispatch = useDispatch();
   const nameFetchedRef = useRef(false);
   const userName = useSelector(selectUserName);
-
   useEffect(() => {
     // Generating Random Name and Avatar
     if (nameFetchedRef.current) return;
@@ -21,7 +23,19 @@ export default function Home() {
       dispatch({ type: "user/setAvatar", payload: randomNumber(1, 9) });
       nameFetchedRef.current = true;
     }
+
+    socketInit();
   }, []);
+
+  async function socketInit() {
+    socket = io("http://localhost:8000");
+
+    socket.on("connect", () => {
+      console.log("Socket Connected: ", socket.id);
+
+      // TODO : Save Socket ID in Redux
+    });
+  }
 
   return (
     <div

@@ -22,5 +22,4 @@ export const dealCards = () => {
 
 // Turn Manager
 export const turnManager = () => {
-
 }

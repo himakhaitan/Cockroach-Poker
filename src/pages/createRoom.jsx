@@ -1,7 +1,20 @@
+import { useEffect } from "react";
+
 import classes from "../styles/createRoom.module.css";
 import Navigation from "@/components/Navigation";
 import Link from "next/link";
+
+import { useSelector } from "react-redux";
+import { selectUserName, selectUserAvatar } from "../store/slices/userSlice";
+
 const CreateRoom = ({}) => {
+
+  const userName = useSelector(selectUserName);
+  const userAvatar = useSelector(selectUserAvatar);
+
+  
+
+
   return (
     <div
       className={`h-screen bg-gradient-to-tr from-black via-slate-800 to-red-900 ${classes.createRoom}`}
