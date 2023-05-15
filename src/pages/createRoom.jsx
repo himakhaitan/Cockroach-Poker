@@ -3,6 +3,7 @@ import { useState } from "react";
 import classes from "../styles/createRoom.module.css";
 import Navigation from "@/components/Navigation";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import { useSelector } from "react-redux";
 import { selectUserName, selectUserAvatar } from "../store/slices/userSlice";
@@ -16,13 +17,16 @@ const CreateRoom = () => {
   const socket = useSelector(selectSocket);
   const [name, setName] = useState("");
 
+  const router = useRouter();
+
   const nameChangeHandler = (event) => {
-    setName(event.target.value.split(" ").join("").toLowerCase());
+    // setName(event.target.value.split(" ").join("").toLowerCase());
+    setName(event.target.value);
   };
 
   const createRoomHandler = () => {
     socket.on(SOCKET_EVENTS.ROOM_CREATED, (data) => {
-      console.log(data);
+      router.push(`/lobby/${data.roomId}`);
     });
 
     socket.emit(SOCKET_EVENTS.CREATE_ROOM, {
