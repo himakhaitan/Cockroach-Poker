@@ -1,6 +1,12 @@
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { selectSocket } from "../store/slices/storeSlice";
+import { selectUserAvatar, selectUserName } from "@/store/slices/userSlice";
 import classes from "../styles/createRoom.module.css";
 import Navigation from "@/components/Navigation";
 import Link from "next/link";
+import SOCKET_EVENTS from "@/utils/socketEvents";
+import { useRouter } from "next/router";
 
 const RoomItem = ({}) => {
   return (
@@ -16,8 +22,27 @@ const RoomItem = ({}) => {
 };
 
 const JoinRoom = ({}) => {
+  const [roomId, setRoomId] = useState("");
+  const router = useRouter();
+  const socket = useSelector(selectSocket);
+  const userName = useSelector(selectUserName);
+  const userAvatar = useSelector(selectUserAvatar);
 
-    
+  const handleRoomIdChange = (e) => {
+    setRoomId(e.target.value);
+  };
+
+  const joinRoomHandler = () => {
+    socket.emit(SOCKET_EVENTS.JOIN_ROOM, {
+      roomId: roomId,
+      userName,
+      userAvatar,
+    });
+
+    socket.on(SOCKET_EVENTS.PLAYER_JOINED, (data) => {
+      router.push(`/lobby/${data.roomId}`);
+    })
+  };
 
   return (
     <div
@@ -46,17 +71,20 @@ const JoinRoom = ({}) => {
           </Link>
         </div>
         <div>
-          <form class="w-full max-w-4xl">
-            <div class="flex items-center border-b border-white py-3">
+          <form className="w-full max-w-4xl">
+            <div className="flex items-center border-b border-white py-3">
               <input
-                class="appearance-none bg-transparent border-none w-full text-gray-200 mr-3 py-1 px-2 leading-tight focus:outline-none"
+                className="appearance-none bg-transparent border-none w-full text-gray-200 mr-3 py-1 px-2 leading-tight focus:outline-none"
                 type="text"
                 placeholder="Enter Room ID"
                 aria-label="Full name"
+                value={roomId}
+                onChange={handleRoomIdChange}
               />
               <button
-                class="flex-shrink-0 bg-red-500 hover:bg-red-700 border-red-500 hover:border-red-700 text-2xl border-4 text-white py-3 px-6 rounded"
+                className="flex-shrink-0 bg-red-500 hover:bg-red-700 border-red-500 hover:border-red-700 text-2xl border-4 text-white py-3 px-6 rounded"
                 type="button"
+                onClick={joinRoomHandler}
               >
                 Join Room
               </button>
@@ -65,7 +93,9 @@ const JoinRoom = ({}) => {
         </div>
       </div>
       <div className="text-white w-full mt-20 py-20 px-40">
-        <h1 className="bg-gradient-to-r from-neutral-50 mb-10 text-center to-yellow-500 bg-clip-text text-transparent text-6xl font-bold">Active Rooms</h1>
+        <h1 className="bg-gradient-to-r from-neutral-50 mb-10 text-center to-yellow-500 bg-clip-text text-transparent text-6xl font-bold">
+          Active Rooms
+        </h1>
         <RoomItem />
         <RoomItem />
         <RoomItem />

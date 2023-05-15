@@ -5,6 +5,10 @@ const SOCKET_EVENTS = {
     JOIN_ROOM: "joinRoom",
     LEAVE_ROOM: "leaveRoom",
     ROOM_CREATED: "roomCreated",
-}
-
-export default SOCKET_EVENTS;
+    ROOM_JOINED: "roomJoined",
+    PLAYER_JOINED: "playerJoined",
+    REFRESH_LOBBY: "refreshLobby",
+  };
+  
+  module.exports = SOCKET_EVENTS;
+  

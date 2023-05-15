@@ -1,14 +1,27 @@
 import classes from "../../styles/createRoom.module.css";
 import Navigation from "@/components/Navigation";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-
+import { useSelector } from "react-redux";
+import { selectSocket } from "@/store/slices/storeSlice";
 import { doc, getDoc } from "firebase/firestore";
 import db from "../../firebase/FirebaseService";
+import SOCKET_EVENTS from "@/utils/socketEvents";
 
-const Lobby = ({ players, roomName }) => {
+const Lobby = ({ pplayers, roomName }) => {
+  const [players, setPlayers] = useState(pplayers);
+
   const router = useRouter();
   const { lobby } = router.query;
+
+  const socket = useSelector(selectSocket);
+
+  useEffect(() => {
+    socket.on(SOCKET_EVENTS.REFRESH_LOBBY, (players) => {
+      setPlayers(players);
+    });
+  });
 
   return (
     <div
@@ -55,12 +68,11 @@ export async function getServerSideProps(context) {
 
   const docRef = doc(db, "rooms", lobby);
   const docSnap = await getDoc(docRef);
-  console.log(docSnap.data());
   let data = docSnap.data();
-  
+
   return {
     props: {
-      players: data.players,
+      pplayers: data.players,
       roomName: data.roomName,
     }, // will be passed to the page component as props
   };
