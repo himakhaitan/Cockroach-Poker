@@ -20,9 +20,9 @@ const Lobby = ({ players, roomName }) => {
       </h1>
 
       <div className="grid grid-cols-4 px-40 gap-8">
-        {players.map((player) => {
+        {players.map((player, index) => {
           return (
-            <div>
+            <div key={index}>
               <img
                 className="mx-auto w-80 h-80 rounded-full"
                 src={`/heads/${player.avatar}.png`}
@@ -55,20 +55,9 @@ export async function getServerSideProps(context) {
 
   const docRef = doc(db, "rooms", lobby);
   const docSnap = await getDoc(docRef);
-
-  let data = {
-    players: [
-      {
-        name: "Molly",
-        avatar: 2,
-      },
-      {
-        name: "Khaitan",
-        avatar: 3,
-      }
-    ],
-    roomName: "Fata Kalpok",
-  };
+  console.log(docSnap.data());
+  let data = docSnap.data();
+  
   return {
     props: {
       players: data.players,
