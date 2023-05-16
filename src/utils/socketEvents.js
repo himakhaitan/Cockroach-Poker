@@ -15,12 +15,6 @@ const SOCKET_EVENTS = {
 
   SET_TURN: "setTurn",
   SET_TO_TURN: "setToTurn",
-
-  INIT_TURN: "initTurn",
-  REPLY_TURN: "replyTurn",
-  PLAYED: "played",
-  RESULT: "result",
-  GAME_LOG: "gameLog",
 };
 
 module.exports = SOCKET_EVENTS;
