@@ -1,27 +1,46 @@
+// Component Management
 import { useEffect, useState } from "react";
+
+// Styles
 import classes from "../../styles/home.module.css";
-import Navigation from "@/components/Navigation";
+
+// Redux Imports
 import { useSelector } from "react-redux";
 import { selectSocket } from "@/store/slices/storeSlice";
+import { selectUserName } from "@/store/slices/userSlice";
+
+// Components
 import Playing from "@/components/Form/Playing";
 import GetPlayed from "@/components/Form/GetPlayed";
+import Navigation from "@/components/Navigation";
 import Card from "@/components/Card";
+
+// Helper
 import SOCKET_EVENTS from "@/utils/socketEvents";
+import { useRouter } from "next/router";
 
 function onlyUnique(value, index, array) {
   return array.indexOf(value) === index;
 }
 
-import { useRouter } from "next/router";
-import { selectUserName } from "@/store/slices/userSlice";
 const Game = ({}) => {
   const [isPlayed, setIsPlayed] = useState(null);
   const [cards, setCards] = useState([]);
   const [roomName, setRoomName] = useState("");
   const [players, setPlayers] = useState([]);
+
+  const [bluff, setBluff] = useState();
+  const [playedCard, setPlayedCard] = useState();
+  const [playedUser, setPlayedUser] = useState();
+
   const router = useRouter();
   const name = useSelector(selectUserName);
   const socket = useSelector(selectSocket);
+
+  const [reply, setReply] = useState();
+
+  const [logStock, setLogStock] = useState(["Game Started"]);
+
   const { game } = router.query;
 
   useEffect(() => {
@@ -31,7 +50,6 @@ const Game = ({}) => {
     });
 
     socket.on(SOCKET_EVENTS.LOAD_CARDS, (data) => {
-      console.log(data);
       setCards(data);
     });
 
@@ -43,7 +61,43 @@ const Game = ({}) => {
     socket.on(SOCKET_EVENTS.SET_TURN, (data) => {
       setIsPlayed(!data);
     });
+
+    socket.on(SOCKET_EVENTS.GAME_LOG, (data) => {
+      setLogStock((prev) => [...prev, data]);
+    });
   }, []);
+
+  function onBluffChange(e) {
+    setBluff(e.target.value);
+  }
+
+  const onReplyChange = (e) => {
+    setReply(e.target.value);
+  };
+
+  function onPlayedPlayerChange(e) {
+    setPlayedUser(e.target.value);
+  }
+
+  function onPlayedCardChange(e) {
+    setPlayedCard(e.target.value);
+  }
+
+  const onPlayHandler = () => {
+    socket.emit(SOCKET_EVENTS.INIT_TURN, {
+      roomId: game,
+      playedCard: playedCard,
+      playedPlayer: playedUser,
+      bluff: bluff,
+    });
+  };
+
+  const onBluffHandler = () => {
+    socket.emit(SOCKET_EVENTS.REPLY_TURN, {
+      roomId: game,
+      reply,
+    });
+  };
 
   return (
     <div
@@ -91,9 +145,16 @@ const Game = ({}) => {
               Actions
             </h1>
             {isPlayed ? (
-              <GetPlayed />
+              <GetPlayed onReplyChange={onReplyChange} />
             ) : (
-              <Playing players={players} cards={cards.filter(onlyUnique)} />
+              <Playing
+                onPlayHandler={onPlayHandler}
+                bluffChange={onBluffChange}
+                cardChange={onPlayedCardChange}
+                playerChange={onPlayedPlayerChange}
+                players={players}
+                cards={cards.filter(onlyUnique)}
+              />
             )}
           </div>
           <div>
@@ -101,12 +162,11 @@ const Game = ({}) => {
               Game Logs
             </h1>
             <div className="h-96 rounded-2xl overflow-auto">
-              <p className="text-zinc-800 font-medium bg-gray-200 py-2 px-4 mb-4 bg-opacity-80 rounded">
-                - Raj played the card to you.
-              </p>
-              <p className="text-zinc-800 font-medium bg-gray-200 py-2 px-4 mb-4 bg-opacity-80 rounded">
-                - Raj played the card to you.
-              </p>
+              {logStock.map((log) => (
+                <p className="text-zinc-800 font-medium bg-gray-200 py-2 px-4 mb-4 bg-opacity-80 rounded">
+                  - {log}
+                </p>
+              ))}
             </div>
           </div>
         </div>

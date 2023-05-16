@@ -2,7 +2,7 @@ import { cardNames } from "@/game/card";
 import { useSelector } from "react-redux";
 import { selectUserName } from "@/store/slices/userSlice";
 
-const Playing = ({ cards, players }) => {
+const Playing = ({ onPlayHandler, cards, players, bluffChange, cardChange, playerChange }) => {
   // When a player plays the card to another player
 
   const name = useSelector(selectUserName);
@@ -13,7 +13,10 @@ const Playing = ({ cards, players }) => {
       <h5 className="text-white mb-3">Choose the Card to Play</h5>
 
       <div class="inline-block relative w-full mb-10">
-        <select class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+        <select
+          onChange={cardChange}
+          class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+        >
           {cards.map((card) => {
             return <option value={card}>{card}</option>;
           })}
@@ -30,7 +33,10 @@ const Playing = ({ cards, players }) => {
       </div>
       <h5 className="text-white mb-3">Select the Player to Play</h5>
       <div class="inline-block relative w-full mb-10">
-        <select class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+        <select
+          onChange={playerChange}
+          class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+        >
           {players.map((player) => {
             if (player.name !== name) {
               return <option value={player.name}>{player.name}</option>;
@@ -49,7 +55,10 @@ const Playing = ({ cards, players }) => {
       </div>
       <h5 className="text-white mb-3">Bluff Prompt</h5>
       <div class="inline-block relative w-full mb-10">
-        <select class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+        <select
+          onChange={bluffChange}
+          class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+        >
           {cardNames.map((card) => {
             return <option value={card}>{card}</option>;
           })}
@@ -64,6 +73,9 @@ const Playing = ({ cards, players }) => {
           </svg>
         </div>
       </div>
+      <button onClick={onPlayHandler} className="text-white bg-red-500 hover:bg-red-400 text-gray-800 font-bold py-2 px-7 rounded inline-flex items-center">
+        <span>Play</span>
+      </button>
     </div>
   );
 };
