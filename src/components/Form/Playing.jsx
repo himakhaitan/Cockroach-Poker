@@ -1,5 +1,12 @@
-const Playing = () => {
+import { cardNames } from "@/game/card";
+import { useSelector } from "react-redux";
+import { selectUserName } from "@/store/slices/userSlice";
+
+const Playing = ({ cards, players }) => {
   // When a player plays the card to another player
+
+  const name = useSelector(selectUserName);
+  console.log(players);
 
   return (
     <div className="">
@@ -7,11 +14,9 @@ const Playing = () => {
 
       <div class="inline-block relative w-full mb-10">
         <select class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
-          <option>
-            Really long option that will likely overlap the chevron
-          </option>
-          <option>Option 2</option>
-          <option>Option 3</option>
+          {cards.map((card) => {
+            return <option value={card}>{card}</option>;
+          })}
         </select>
         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
           <svg
@@ -26,11 +31,11 @@ const Playing = () => {
       <h5 className="text-white mb-3">Select the Player to Play</h5>
       <div class="inline-block relative w-full mb-10">
         <select class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
-          <option>
-            Really long option that will likely overlap the chevron
-          </option>
-          <option>Option 2</option>
-          <option>Option 3</option>
+          {players.map((player) => {
+            if (player.name !== name) {
+              return <option value={player.name}>{player.name}</option>;
+            }
+          })}
         </select>
         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
           <svg
@@ -45,11 +50,9 @@ const Playing = () => {
       <h5 className="text-white mb-3">Bluff Prompt</h5>
       <div class="inline-block relative w-full mb-10">
         <select class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
-          <option>
-            Really long option that will likely overlap the chevron
-          </option>
-          <option>Option 2</option>
-          <option>Option 3</option>
+          {cardNames.map((card) => {
+            return <option value={card}>{card}</option>;
+          })}
         </select>
         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
           <svg

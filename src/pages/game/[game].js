@@ -8,10 +8,14 @@ import GetPlayed from "@/components/Form/GetPlayed";
 import Card from "@/components/Card";
 import SOCKET_EVENTS from "@/utils/socketEvents";
 
+function onlyUnique(value, index, array) {
+  return array.indexOf(value) === index;
+}
+
 import { useRouter } from "next/router";
 import { selectUserName } from "@/store/slices/userSlice";
 const Game = ({}) => {
-  const [isPlayed, setIsPlayed] = useState(true);
+  const [isPlayed, setIsPlayed] = useState(null);
   const [cards, setCards] = useState([]);
   const [roomName, setRoomName] = useState("");
   const [players, setPlayers] = useState([]);
@@ -86,7 +90,11 @@ const Game = ({}) => {
             <h1 className="text-white text-left font-semibold text-4xl mb-10">
               Actions
             </h1>
-            {isPlayed ? <GetPlayed /> : <Playing />}
+            {isPlayed ? (
+              <GetPlayed />
+            ) : (
+              <Playing players={players} cards={cards.filter(onlyUnique)} />
+            )}
           </div>
           <div>
             <h1 className="text-white text-left font-semibold text-4xl mb-10">
