@@ -50,11 +50,9 @@ Engage in thrilling multiplayer matches with friends or random opponents. Experi
 
 ## About The Project
 
-<p>This project is an API (Application Programming Interface) powered by <a href="https://expressjs.com/">Express JS</a>. Different Routes can be used to perfrom different set of predefined CRUD operations on the MongoDB Database.</p>
+<p>This project is an Single Page Web App Next JS by Vercel.</p>
 
-The API may serve several **API Clients** to serve their purpose. API is capable of maintating Inventory of the Library and manage other chores such as Issuing a Book & Taking it back.
-
-Ofcourse, the API doesn't serve for many day-to-day operations required for Library Management. You may check-out my Roadmap for API <a href="#roadmap">here</a>. You may also suggest changes or new features by creating a new issue <a href="https://github.com/himakhaitan/Cockroach-Poker/issues">here</a>.
+Ofcourse, the Game doesn't serve for many users will. You may check-out my Roadmap for the Web App <a href="#roadmap">here</a>. You may also suggest changes or new features by creating a new issue <a href="https://github.com/himakhaitan/Cockroach-Poker/issues">here</a>.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
