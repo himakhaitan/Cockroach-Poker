@@ -42,18 +42,11 @@ Engage in thrilling multiplayer matches with friends or random opponents. Experi
       </ul>
     </li>
     <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#routes">Routes</a>
-    <ul>
-      <li><a href="#add-routes">Add Routes</a></li>
-      <li><a href="#auth-routes">Auth Routes</a></li>
-      <li><a href="#data-routes">Data Routes</a></li>
-      <li><a href="#delete-routes">Delete Routes</a></li>
-      <li><a href="#issue-routes">Issue Routes</a></li>
-    </ul>
-    </li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
+
+<img src="https://github.com/himakhaitan/Cockroach-Poker/blob/main/public/normal/1.png?raw=true">
 
 ## About The Project
 
@@ -61,7 +54,7 @@ Engage in thrilling multiplayer matches with friends or random opponents. Experi
 
 The API may serve several **API Clients** to serve their purpose. API is capable of maintating Inventory of the Library and manage other chores such as Issuing a Book & Taking it back.
 
-Ofcourse, the API doesn't serve for many day-to-day operations required for Library Management. You may check-out my Roadmap for API <a href="#roadmap">here</a>. You may also suggest changes or new features by creating a new issue <a href="https://github.com/himakhaitan/Folio-API/issues">here</a>.
+Ofcourse, the API doesn't serve for many day-to-day operations required for Library Management. You may check-out my Roadmap for API <a href="#roadmap">here</a>. You may also suggest changes or new features by creating a new issue <a href="https://github.com/himakhaitan/Cockroach-Poker/issues">here</a>.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -69,20 +62,22 @@ Ofcourse, the API doesn't serve for many day-to-day operations required for Libr
 
 Below is the list of all the major frameworks and libraries used in the project.
 
-- [Express.js](https://expressjs.com/)
-- [Node.js](https://nodejs.org/en/)
-- [Mongoose](https://mongoosejs.com/)
+- [Next.js](https://nextjs.org/)
+- [Firebase](https://firebase.google.com/)
+- [Socket.io](https://socket.io/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+<img src="https://github.com/himakhaitan/Cockroach-Poker/blob/main/public/normal/3.png?raw=true">
+
 ## Getting Started
 
-To get a local copy of the API Server up and running follow these simple steps
+To get a local copy of the Web App up and running follow these simple steps
 
 - Clone the repository
 
 ```bash
-git clone https://github.com/himakhaitan/Folio-API.git
+git clone https://github.com/himakhaitan/Cockroach-Poker.git
 ```
 
 - Install the dependencies
@@ -91,7 +86,7 @@ git clone https://github.com/himakhaitan/Folio-API.git
 npm install
 ```
 
-- Follow the <a href="https://github.com/himakhaitan/Folio-API#installation">Installation</a> Steps
+- Follow the <a href="https://github.com/himakhaitan/Cockroach-Poker#installation">Installation</a> Steps
 
 - Ready to run the Server
 
@@ -114,82 +109,43 @@ This will constantly look for changes in your code and restart the server automa
 The prerequisites for the API server to run are the following:
 
 - Node.js (v16.16.0 or higher)
-- MongoDB (Locally or Cloud)
 - and you are good to go!
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Installation
 
-Following are the steps to configure the API Server and make it up and running.
+Following are the steps to configure the Web APP and make it up and running.
 
 - Configure the Environment Variables
   - Create a file called `.env` in the root directory of the project
   - Add the following lines to the file
   ```bash
-  DATABASE_URL=MONGODB_URL
-  TOKEN_SECRET=STRING_FOR_HASHING_JWT
+  FIREBASE_API_KEY=
+  FIREBASE_AUTH_DOMAIN=
+  FIREBASE_DATABASE_URL=
+  FIREBASE_PROJECT_ID=
+  FIREBASE_STORAGE_BUCKET=
+  FIREBASE_MESSAGING_SENDER_ID=
+  FIREBASE_APP_ID=
+  FIREBASE_MEASUREMENT_ID=
   ```
-  - Replace `DATABASE_URL` with a MongoDB Url (Locally Hosted or Cloud Based)
-  - Replace `TOKEN_SECRET` with a string of your choice. Make sure to choose it tough.
   - Note: You can also use the `sample.env` file to get a template of the file
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+<img src="https://github.com/himakhaitan/Cockroach-Poker/blob/main/public/normal/4.png?raw=true">
+
 ## Roadmap
 
-- [ ] Route to fetch Books by Authors
-- [ ] Route to fetch Books by Genre
-- [ ] Adding Multiple copies of same Book
-- [ ] Issuing Books with more than 1 copies
+- [ ] Adding Custom Names and Avatars for the Users
+- [ ] Routes for Visitors who wanna Spectate
+- [ ] Text Chat while the game is running
+- [ ] Authenticate users using Firebase
 
-See the [open issues](https://github.com/himakhaitan/Folio-API/issues) for a full list of proposed features (and known issues). Feel free to create one.
+See the [open issues](https://github.com/himakhaitan/Cockroach-Poker/issues) for a full list of proposed features (and known issues). Feel free to create one.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-## Routes
-
-### Add Routes
-
-| Route           | Method | Description   | Params                                                             | Response                                           | Access           |
-| --------------- | ------ | ------------- | ------------------------------------------------------------------ | -------------------------------------------------- | ---------------- |
-| /api/add/book   | POST   | Add a Book    | title: String, genre: ObjectID, author: ObjectID,                  | book: Object, success: Boolean, message: String,   | admin & employee |
-| /api/add/author | POST   | Add an Author | firstName: String, lastName: String                                | author: Object, success: Boolean, message: String, | admin & employee |
-| /api/add/user   | POST   | Add a User    | firstName: String, lastName: String, email: String, regNo: String, | user: Object, success: Boolean, message: String,   | admin & employee |
-| /api/add/genre  | POST   | Add a Genre   | name: String                                                       | genre: Object, success: Boolean, message: String,  | admin & employee |
-
-### Auth Routes
-
-| Route          | Method | Description       | Params                                            | Response                                         | Access |
-| -------------- | ------ | ----------------- | ------------------------------------------------- | ------------------------------------------------ | ------ |
-| /auth/register | POST   | Registering Admin | username: String, email: String, password: String | admin: Object, message: String, success: Boolean | admin  |
-| /auth/login    | POST   | Loggin In User    | username: String, password: String                | jwt: String,message: String, success: Boolean    | Public |
-
-### Data Routes
-
-| Route                       | Method | Description                              | Params        | Response                                          | Access                  |
-| --------------------------- | ------ | ---------------------------------------- | ------------- | ------------------------------------------------- | ----------------------- |
-| /api/data/author/id/:id     | GET    | Fetch Author by ID                       | id: String    | author: Object, message: String, success: Boolean | admin, employee, common |
-| /api/data/book/id/:id       | GET    | Fetch Book by ID                         | id: String    | book: Object, message: String, success: Boolean   | admin, employee, common |
-| /api/data/book/:slug        | GET    | Fetch Book by Slug                       | slug: String  | book: Object, message: String, success: Boolean   | admin, employee, common |
-| /api/data/genre/id/:id      | GET    | Fetching Books of a Genre with Object ID | id: String    | genre: Object, message: String, success: Boolean  | admin, employee, common |
-| /api/data/genre/:slug       | GET    | Fetching Books of a Genre with Slug      | slug: String  | genre: Object, message: String, success: Boolean  | admin, employee, common |
-| /api/data/user/id/:id       | GET    | Get a User by Object ID                  | id: String    | user: Object, message: String, success: Boolean   | admin & employee        |
-| /api/data/user/regNo/:regNo | GET    | Get a User by Registration Number        | regNo: String | user: Object, message: String, success: Boolean   | admin & employee        |
-
-### Delete Routes
-
-| Route                | Method | Description         | Params     | Response                          | Access |
-| -------------------- | ------ | ------------------- | ---------- | --------------------------------- | ------ |
-| /api/delete/book/:id | DELETE | Delete a Book by ID | id: String | message: String, success: Boolean | admin  |
-| /api/delete/user/:id | DELETE | Delete a User by ID | id: String | message: String, success: Boolean | admin  |
-
-### Issue Routes
-
-| Route             | Method | Description     | Params                        | Response                                                                             | Access           |
-| ----------------- | ------ | --------------- | ----------------------------- | ------------------------------------------------------------------------------------ | ---------------- |
-| /api/issue/add    | POST   | Issue a Book    | book: ObjectID, regNo: String | success: Boolean, message: String, book: ObjectID, regNo: String, issuedTo: ObjectID | admin & employee |
-| /api/issue/remove | POST   | Retrieve a Book | book: ObjectD                 | book: ObjectID, user: ObjectID, success: Boolean, message: String                    | admin & employee |
 
 ## Contact
 
