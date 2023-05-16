@@ -11,7 +11,6 @@ const Playing = ({ onPlayHandler, cards, players, bluffChange, cardChange, playe
   return (
     <div className="">
       <h5 className="text-white mb-3">Choose the Card to Play</h5>
-
       <div class="inline-block relative w-full mb-10">
         <select
           onChange={cardChange}
@@ -21,9 +20,9 @@ const Playing = ({ onPlayHandler, cards, players, bluffChange, cardChange, playe
             return <option value={card}>{card}</option>;
           })}
         </select>
-        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
           <svg
-            class="fill-current h-4 w-4"
+            className="fill-current h-4 w-4"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
           >
@@ -32,6 +31,7 @@ const Playing = ({ onPlayHandler, cards, players, bluffChange, cardChange, playe
         </div>
       </div>
       <h5 className="text-white mb-3">Select the Player to Play</h5>
+
       <div class="inline-block relative w-full mb-10">
         <select
           onChange={playerChange}
@@ -63,9 +63,9 @@ const Playing = ({ onPlayHandler, cards, players, bluffChange, cardChange, playe
             return <option value={card}>{card}</option>;
           })}
         </select>
-        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
           <svg
-            class="fill-current h-4 w-4"
+            className="fill-current h-4 w-4"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
           >

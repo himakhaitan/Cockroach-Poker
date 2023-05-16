@@ -112,8 +112,8 @@ const Game = ({}) => {
           Your Cards
         </h1>
         <div className="grid grid-cols-8 gap-10 mt-10 px-40">
-          {cards.map((card) => {
-            return <Card type={card} />;
+          {cards.map((card, index) => {
+            return <Card key={index} type={card} />;
           })}
         </div>
         <div className="mt-10 grid grid-cols-3 gap-20 px-40 py-20">
@@ -122,9 +122,9 @@ const Game = ({}) => {
               Players
             </h1>
             <div className="grid grid-cols-1 mt-10">
-              {players.map((player) => {
+              {players.map((player, index) => {
                 return (
-                  <div className="rounded-lg  bg-opacity-70  px-7 py-5 bg-zinc-800 mb-5">
+                  <div key={index} className="rounded-lg  bg-opacity-70  px-7 py-5 bg-zinc-800 mb-5">
                     <div className="flex place-content-between items-center border-b-2 border-yellow-700 pb-5">
                       <img
                         className="h-20 w-20 rounded-full"
@@ -132,8 +132,8 @@ const Game = ({}) => {
                       />
                       <p className="text-gray-200 font-medium">{player.name}</p>
                     </div>
-                    {player.lost.map((card) => {
-                      return <Card type={card} />;
+                    {player.lost.map((card, index) => {
+                      return <Card key={index} type={card} />;
                     })}
                   </div>
                 );
@@ -162,11 +162,13 @@ const Game = ({}) => {
               Game Logs
             </h1>
             <div className="h-96 rounded-2xl overflow-auto">
-              {logStock.map((log) => (
-                <p className="text-zinc-800 font-medium bg-gray-200 py-2 px-4 mb-4 bg-opacity-80 rounded">
-                  - {log}
-                </p>
-              ))}
+              <p className="text-zinc-800 font-medium bg-gray-200 py-2 px-4 mb-4 bg-opacity-80 rounded">
+                - GAME STARTED
+              </p>
+              <p className="text-zinc-800 font-medium bg-gray-200 py-2 px-4 mb-4 bg-opacity-80 rounded">
+                - Raj played the card to you.
+              </p>
+
             </div>
           </div>
         </div>
