@@ -24,7 +24,7 @@ Engage in thrilling multiplayer matches with friends or random opponents. Experi
 <img src="https://github.com/himakhaitan/himakhaitan/blob/main/icons/socket.png?raw=true" height="60">
 </p>
 
-<img src="https://github.com/himakhaitan/Cockroach-Poker/tree/main/public/normal/2.png?raw=true">
+<img src="https://github.com/himakhaitan/Cockroach-Poker/blob/main/public/normal/2.png?raw=true">
 
 <details>
   <summary>Table of Contents</summary>
