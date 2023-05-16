@@ -102,7 +102,7 @@ const Game = ({}) => {
             </h1>
             <div className="h-96 rounded-2xl overflow-auto">
               <p className="text-zinc-800 font-medium bg-gray-200 py-2 px-4 mb-4 bg-opacity-80 rounded">
-                - Raj played the card to you.
+                - GAME STARTED
               </p>
               <p className="text-zinc-800 font-medium bg-gray-200 py-2 px-4 mb-4 bg-opacity-80 rounded">
                 - Raj played the card to you.
