@@ -58,8 +58,8 @@ const Game = ({}) => {
           Your Cards
         </h1>
         <div className="grid grid-cols-8 gap-10 mt-10 px-40">
-          {cards.map((card) => {
-            return <Card type={card} />;
+          {cards.map((card, index) => {
+            return <Card key={index} type={card} />;
           })}
         </div>
         <div className="mt-10 grid grid-cols-3 gap-20 px-40 py-20">
@@ -68,9 +68,9 @@ const Game = ({}) => {
               Players
             </h1>
             <div className="grid grid-cols-1 mt-10">
-              {players.map((player) => {
+              {players.map((player, index) => {
                 return (
-                  <div className="rounded-lg  bg-opacity-70  px-7 py-5 bg-zinc-800 mb-5">
+                  <div key={index} className="rounded-lg  bg-opacity-70  px-7 py-5 bg-zinc-800 mb-5">
                     <div className="flex place-content-between items-center border-b-2 border-yellow-700 pb-5">
                       <img
                         className="h-20 w-20 rounded-full"
@@ -78,8 +78,8 @@ const Game = ({}) => {
                       />
                       <p className="text-gray-200 font-medium">{player.name}</p>
                     </div>
-                    {player.lost.map((card) => {
-                      return <Card type={card} />;
+                    {player.lost.map((card, index) => {
+                      return <Card key={index} type={card} />;
                     })}
                   </div>
                 );
