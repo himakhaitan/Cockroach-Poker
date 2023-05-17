@@ -77,6 +77,23 @@ const Game = ({}) => {
     socket.on(SOCKET_EVENTS.SET_PLAYING, (data) => {
       setIsPlaying(data);
     });
+
+    socket.on(SOCKET_EVENTS.UPDATE_CARDS, (data) => {
+      console.log("update cards");
+      setCards(data);
+    });
+
+    socket.on(SOCKET_EVENTS.SET_NULL, () => {
+      console.log("set null");
+      setIsPlayed(null);
+      setIsPlaying(null);
+    });
+
+    socket.on(SOCKET_EVENTS.UPDATE_LOG, (data) => {
+      setLogs((prev) => {
+        return [...prev, data];
+      });
+    });
   }, []);
 
   const playCardHandler = () => {
@@ -85,6 +102,35 @@ const Game = ({}) => {
       playedCard: playingCard,
       bluffingCard: bluffingCard,
       playedPlayer: playedPlayer,
+    });
+
+    // Updare Logs
+
+    setLogs((prev) => {
+      return [
+        ...prev,
+        `You played ${playingCard}`,
+        `You bluffed ${bluffingCard}`,
+        `You played on ${playedPlayer}`,
+        "Waiting for next turn...",
+      ];
+    });
+  };
+
+  const replyCardHandler = () => {
+    socket.emit(SOCKET_EVENTS.REPLY_TURN, {
+      roomId: game,
+      reply: reply,
+    });
+
+    // Updare Logs
+    setLogs((prev) => {
+      return [
+        ...prev,
+        `You replied ${reply}`,
+        "Bluff Was Successful",
+        "Waiting for next turn...",
+      ];
     });
   };
 
@@ -113,7 +159,10 @@ const Game = ({}) => {
             <div className="grid grid-cols-1 mt-10">
               {players.map((player, index) => {
                 return (
-                  <div key={index} className="rounded-lg  bg-opacity-70  px-7 py-5 bg-zinc-800 mb-5">
+                  <div
+                    key={index}
+                    className="rounded-lg  bg-opacity-70  px-7 py-5 bg-zinc-800 mb-5"
+                  >
                     <div className="flex place-content-between items-center border-b-2 border-yellow-700 pb-5">
                       <img
                         className="h-20 w-20 rounded-full"
@@ -121,7 +170,7 @@ const Game = ({}) => {
                       />
                       <p className="text-gray-200 font-medium">{player.name}</p>
                     </div>
-                    {player.lost.map((card,index) => {
+                    {player.lost.map((card, index) => {
                       return <Card key={index} type={card} />;
                     })}
                   </div>
@@ -147,7 +196,11 @@ const Game = ({}) => {
               />
             )}
             {isPlayed && (
-              <GetPlayed reply={reply} replyHandler={replyHandler} />
+              <GetPlayed
+                replyCardHandler={replyCardHandler}
+                reply={reply}
+                replyHandler={replyHandler}
+              />
             )}
           </div>
           <div>

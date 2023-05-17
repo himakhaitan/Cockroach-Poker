@@ -1,4 +1,4 @@
-const GetPlayed = ({ reply, replyHandler }) => {
+const GetPlayed = ({ reply, replyHandler , replyCardHandler}) => {
   // When a player gets played by another player
 
   return (
@@ -24,7 +24,7 @@ const GetPlayed = ({ reply, replyHandler }) => {
           </svg>
         </div>
       </div>
-      <button className="bg-red-500 hover:bg-red-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+      <button onClick={replyCardHandler} className="bg-red-500 hover:bg-red-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
         <svg
           className="fill-white w-8 h-8 mr-2"
           xmlns="http://www.w3.org/2000/svg"
