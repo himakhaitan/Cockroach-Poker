@@ -15,7 +15,10 @@ function onlyUnique(value, index, array) {
 import { useRouter } from "next/router";
 import { selectUserName } from "@/store/slices/userSlice";
 const Game = ({}) => {
+  // Playing States
   const [isPlayed, setIsPlayed] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(null);
+
   const [cards, setCards] = useState([]);
   const [roomName, setRoomName] = useState("");
   const [players, setPlayers] = useState([]);
@@ -65,8 +68,12 @@ const Game = ({}) => {
       setPlayers(data.players);
     });
 
-    socket.on(SOCKET_EVENTS.SET_TURN, (data) => {
-      setIsPlayed(!data);
+    socket.on(SOCKET_EVENTS.SET_PLAYED, (data) => {
+      setIsPlayed(data);
+    });
+
+    socket.on(SOCKET_EVENTS.SET_PLAYING, (data) => {
+      setIsPlaying(data);
     });
   }, []);
 
@@ -115,9 +122,7 @@ const Game = ({}) => {
             <h1 className="text-white text-left font-semibold text-4xl mb-10">
               Actions
             </h1>
-            {isPlayed ? (
-              <GetPlayed reply={reply} replyHandler={replyHandler} />
-            ) : (
+            {isPlaying && (
               <Playing
                 bluffingCard={bluffingCard}
                 bluffHandler={bluffHandler}
@@ -128,6 +133,9 @@ const Game = ({}) => {
                 players={players}
                 cards={cards.filter(onlyUnique)}
               />
+            )}
+            {isPlayed && (
+              <GetPlayed reply={reply} replyHandler={replyHandler} />
             )}
           </div>
           <div>
