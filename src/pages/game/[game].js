@@ -30,6 +30,9 @@ const Game = ({}) => {
 
   const [reply, setReply] = useState(null);
 
+  // Logs
+  const [logs, setLogs] = useState(["Game Started"]);
+
   // Input Change Handlers
   const playingCardHandler = (e) => {
     setPlayingCard(e.target.value);
@@ -74,6 +77,7 @@ const Game = ({}) => {
 
     socket.on(SOCKET_EVENTS.SET_PLAYING, (data) => {
       setIsPlaying(data);
+      setLogs([...logs, "Your Turn"]);
     });
   }, []);
 
@@ -143,12 +147,16 @@ const Game = ({}) => {
               Game Logs
             </h1>
             <div className="h-96 rounded-2xl overflow-auto">
-              <p className="text-zinc-800 font-medium bg-gray-200 py-2 px-4 mb-4 bg-opacity-80 rounded">
-                - Raj played the card to you.
-              </p>
-              <p className="text-zinc-800 font-medium bg-gray-200 py-2 px-4 mb-4 bg-opacity-80 rounded">
-                - Raj played the card to you.
-              </p>
+              {logs.map((log, index) => {
+                return (
+                  <p
+                    key={index}
+                    className="text-zinc-800 font-medium bg-gray-200 py-2 px-4 mb-4 bg-opacity-80 rounded"
+                  >
+                    - {log}
+                  </p>
+                );
+              })}
             </div>
           </div>
         </div>
