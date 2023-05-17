@@ -16,7 +16,7 @@ const RoomItem = ({ index, roomName, playersCount }) => {
       <span>{index}</span>
       <span>{roomName}</span>
       <span>{playersCount}/4</span>
-      <button class="bg-red-500 hover:bg-red-700 text-white font-medium py-2 px-10 rounded">
+      <button className="bg-red-500 hover:bg-red-700 text-white font-medium py-2 px-10 rounded">
         Join
       </button>
     </div>

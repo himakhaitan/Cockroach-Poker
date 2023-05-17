@@ -19,6 +19,31 @@ const Game = ({}) => {
   const [cards, setCards] = useState([]);
   const [roomName, setRoomName] = useState("");
   const [players, setPlayers] = useState([]);
+
+  // Form States
+  const [playingCard, setPlayingCard] = useState(null);
+  const [bluffingCard, setBluffingCard] = useState(null);
+  const [playedPlayer, setPlayedPlayer] = useState(null);
+
+  const [reply, setReply] = useState(null);
+
+  // Input Change Handlers
+  const playingCardHandler = (e) => {
+    setPlayingCard(e.target.value);
+  };
+
+  const bluffHandler = (e) => {
+    setBluffingCard(e.target.value);
+  };
+
+  const playedPlayerHandler = (e) => {
+    setPlayedPlayer(e.target.value);
+  };
+
+  const replyHandler = (e) => {
+    setReply(e.target.value);
+  };
+
   const router = useRouter();
   const name = useSelector(selectUserName);
   const socket = useSelector(selectSocket);
@@ -91,9 +116,18 @@ const Game = ({}) => {
               Actions
             </h1>
             {isPlayed ? (
-              <GetPlayed />
+              <GetPlayed reply={reply} replyHandler={replyHandler} />
             ) : (
-              <Playing players={players} cards={cards.filter(onlyUnique)} />
+              <Playing
+                bluffingCard={bluffingCard}
+                bluffHandler={bluffHandler}
+                playingCard={playingCard}
+                playingCardHandler={playingCardHandler}
+                playedPlayer={playedPlayer}
+                playedPlayerHandler={playedPlayerHandler}
+                players={players}
+                cards={cards.filter(onlyUnique)}
+              />
             )}
           </div>
           <div>
