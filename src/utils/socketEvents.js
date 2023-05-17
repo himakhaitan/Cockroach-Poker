@@ -18,6 +18,8 @@ const SOCKET_EVENTS = {
 
   INIT_TURN: "initTurn",
   REPLY_TURN: "replyTurn",
+
+  UPDATE_LOG: "updateLog",
 };
 
 module.exports = SOCKET_EVENTS;

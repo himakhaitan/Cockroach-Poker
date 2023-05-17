@@ -11,6 +11,7 @@ const Playing = ({
   playingCardHandler,
   playedPlayer,
   playedPlayerHandler,
+  onInitTurn
 }) => {
   // When a player plays the card to another player
 
@@ -36,7 +37,7 @@ const Playing = ({
         </select>
         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
           <svg
-            class="fill-current h-4 w-4"
+            className="fill-current h-4 w-4"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
           >
@@ -45,7 +46,7 @@ const Playing = ({
         </div>
       </div>
       <h5 className="text-white mb-3">Select the Player to Play</h5>
-      <div class="inline-block relative w-full mb-10">
+      <div className="inline-block relative w-full mb-10">
         <select
           value={playedPlayer}
           onChange={playedPlayerHandler}
@@ -61,9 +62,9 @@ const Playing = ({
             }
           })}
         </select>
-        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
           <svg
-            class="fill-current h-4 w-4"
+            className="fill-current h-4 w-4"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
           >
@@ -96,7 +97,7 @@ const Playing = ({
           </svg>
         </div>
       </div>
-      <button className="bg-red-500 hover:bg-red-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+      <button onClick={onInitTurn} className="bg-red-500 hover:bg-red-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
         <svg
           className="fill-white w-8 h-8 mr-2"
           xmlns="http://www.w3.org/2000/svg"
